@@ -1,0 +1,1 @@
+"""qr_app: Package zur Generierung von QR-Codes aus UUID-basierten URLs."""

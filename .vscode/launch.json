@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: main.py (config.ini)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/qr_code_generator/main.py",
+            "args": ["${workspaceFolder}/qr_code_generator/config.ini"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false
+        }
+    ]
+}
