@@ -36,29 +36,37 @@ class QRCodeGenerator:
             font = ImageFont.truetype("arial.ttf", 30)
         except OSError:
             font = ImageFont.load_default()
-
-        text_box = draw.textbbox((0, 0), text, font=font)
-        text_width = text_box[2] - text_box[0]
-        text_height = text_box[3] - text_box[1]
-
         padding = 10
         center_x = self.size // 2
         center_y = self.size // 2
 
-        background = (
-            center_x - text_width // 2 - padding,
-            center_y - text_height // 2 - padding,
-            center_x + text_width // 2 + padding,
-            center_y + text_height // 2 + padding,
+        text_box = draw.textbbox(
+            (center_x, center_y),
+            text,
+            font=font,
+            anchor="mm",
         )
 
-        draw.rectangle(background, fill="white", outline="black", width=2)
+        background = (
+            text_box[0] - padding,
+            text_box[1] - padding,
+            text_box[2] + padding,
+            text_box[3] + padding,
+        )
+
+        draw.rectangle(
+            background,
+            fill="white",
+            outline="black",
+            width=2,
+        )
 
         draw.text(
-            (center_x - text_width // 2, center_y - text_height // 2),
+            (center_x, center_y),
             text,
             fill="black",
             font=font,
+            anchor="mm",
         )
 
         return img
