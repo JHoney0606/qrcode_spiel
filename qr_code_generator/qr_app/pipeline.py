@@ -39,7 +39,7 @@ class QRPipeline:
         print("log")
         # 4. Pro Eintrag: QR-Code erstellen & ins Bild einsetzen
         for nummer, uuid_value, url in entries:
-            qr_img = self.qr_generator.generate(url)
+            qr_img = self.qr_generator.generate(url, nummer)
             out_path = self.composer.compose(qr_img, uuid_value)
             print(f"[Compose]{nummer}: {uuid_value} → {out_path}")
         print("bilder")
