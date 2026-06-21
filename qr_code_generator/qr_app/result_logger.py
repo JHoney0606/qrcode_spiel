@@ -13,6 +13,6 @@ class ResultLogger:
         self.log_file_path.parent.mkdir(parents=True, exist_ok=True)
         with self.log_file_path.open("w", encoding="utf-8") as f:
             f.write("UUID;URL\n")
-            for uuid_value, url in entries:
-                f.write(f"{uuid_value};{url}\n")
+            for nummer,uuid_value, url in entries:
+                f.write(f"{nummer};{uuid_value};{url}\n")
         print(f"[Logger] {len(entries)} Einträge gespeichert → {self.log_file_path}")

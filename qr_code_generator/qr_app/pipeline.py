@@ -32,15 +32,15 @@ class QRPipeline:
         uuids = self.uuid_generator.generate(self.config.uuid_count)
         print("uuids")
         # 2. URLs bauen
-        entries: list[tuple[str, str]] = self.url_builder.build_all(uuids)
+        entries: list[tuple[int, str, str]] = self.url_builder.build_all(uuids)
         print("entries")
         # 3. Ergebnisse protokollieren
         self.logger.log(entries)
         print("log")
         # 4. Pro Eintrag: QR-Code erstellen & ins Bild einsetzen
-        for uuid_value, url in entries:
+        for nummer, uuid_value, url in entries:
             qr_img = self.qr_generator.generate(url)
             out_path = self.composer.compose(qr_img, uuid_value)
-            print(f"[Compose] {uuid_value} → {out_path}")
+            print(f"[Compose]{nummer}: {uuid_value} → {out_path}")
         print("bilder")
         print("[Pipeline] Fertig.")

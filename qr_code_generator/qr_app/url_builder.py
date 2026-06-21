@@ -11,6 +11,9 @@ class URLBuilder:
     def build(self, uuid_value: str) -> str:
         return f"{self.base_url}{uuid_value}"
 
-    def build_all(self, uuids: list[str]) -> list[tuple[str, str]]:
-        """Gibt eine Liste von (uuid, url)-Paaren zurück."""
-        return [(u, self.build(u)) for u in uuids]
+    def build_all(self, uuids: list[str]) -> list[tuple[int, str, str]]:
+        """Gibt eine Liste von (nummer,uuid, url)-Tupeln zurück."""
+        return [
+        (nummer, uuid_value, self.build(uuid_value))
+        for nummer, uuid_value in enumerate(uuids, start=1)
+    ]
