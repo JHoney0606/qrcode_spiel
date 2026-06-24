@@ -40,11 +40,47 @@
       margin-bottom: 2rem;
     }
 
+    .header-marks {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .header-logo {
+      display: block;
+      width: min(190px, 54vw);
+      height: 96px;
+      object-fit: contain;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
     .compass {
       width: 72px;
       height: 72px;
-      margin: 0 auto 1rem;
+      margin: 0;
       animation: spin-slow 12s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 420px) {
+      .header-marks {
+        gap: .75rem;
+      }
+
+      .header-logo {
+        width: min(165px, 52vw);
+        height: 82px;
+      }
+
+      .compass {
+        width: 60px;
+        height: 60px;
+      }
     }
 
     @keyframes spin-slow {
@@ -302,7 +338,7 @@
   <script>
     // ── Allgemeine Einstellungen ──────────────────────────────────────────
     const CONFIG = {
-      eventName:    "100 Jahre LGV – Schnitzeljagd",
+      eventName:    "Schnitzeljagd - finde die 100",
       subtitle:     "Du hast einen QR-Code gefunden!",
       tallyFormId:  "1ABKdO",   // ← Tally-Form-ID eintragen (aus der Tally-URL)
       urlParam:     "qr_id",                  // URL-Parameter für die UUID (z. B. ?code=uuid-123)
@@ -343,17 +379,21 @@
   <!-- ══════════════════════════════════════════ -->
 
   <header class="header">
-    <!-- Kompass-SVG (rotiert als Signature-Element) -->
-    <svg class="compass" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="36" cy="36" r="34" stroke="#003b6f" stroke-width="2.5" fill="#e2f0ff"/>
-      <polygon points="36,10 41,36 36,30 31,36" fill="#003b6f"/>
-      <polygon points="36,62 41,36 36,42 31,36" fill="#E9C46A"/>
-      <circle cx="36" cy="36" r="4" fill="#003b6f"/>
-      <text x="36" y="8"  text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif" font-weight="600">N</text>
-      <text x="36" y="68" text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif">S</text>
-      <text x="5"  y="39" text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif">W</text>
-      <text x="67" y="39" text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif">O</text>
-    </svg>
+    <div class="header-marks">
+      <img class="header-logo" src="media/bilder/LGV100-Logo.png" alt="100 Jahre - Gemeinsam glauben leben" />
+
+      <!-- Kompass-SVG (rotiert als Signature-Element) -->
+      <svg class="compass" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="36" cy="36" r="34" stroke="#003b6f" stroke-width="2.5" fill="#e2f0ff"/>
+        <polygon points="36,10 41,36 36,30 31,36" fill="#003b6f"/>
+        <polygon points="36,62 41,36 36,42 31,36" fill="#E9C46A"/>
+        <circle cx="36" cy="36" r="4" fill="#003b6f"/>
+        <text x="36" y="8"  text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif" font-weight="600">N</text>
+        <text x="36" y="68" text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif">S</text>
+        <text x="5"  y="39" text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif">W</text>
+        <text x="67" y="39" text-anchor="middle" font-size="7" fill="#003b6f" font-family="Inter,sans-serif">O</text>
+      </svg>
+    </div>
     <h1 id="js-event-name"></h1>
     <p class="subtitle" id="js-subtitle"></p>
   </header>
