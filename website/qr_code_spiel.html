@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://tally.so/widgets/embed.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -190,6 +191,18 @@
     }
 
     .qr-info-box.hidden { display: none; }
+
+    .tally-embed {
+      margin-bottom: .75rem;
+    }
+
+    .tally-embed iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+
+    .tally-embed.hidden { display: none; }
 
     /* ── Buttons ── */
     .btn {
@@ -424,10 +437,17 @@
         <p>Dieser Code ist uns unbekannt.<br>Hast du vielleicht einen selbstgebastelten erwischt? 😄</p>
       </div>
 
-      <!-- Buttons -->
-      <a class="btn btn-primary" id="js-tally-btn" href="#" target="_blank" rel="noopener">
-        <span>📝</span> Ich war hier! – Jetzt eintragen
-      </a>
+      <div class="tally-embed" id="js-tally-embed">
+        <iframe
+          id="js-tally-iframe"
+          loading="lazy"
+          width="100%"
+          height="319"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="QR-Code 100 Jahre LGV"></iframe>
+      </div>
 
       <button class="btn btn-secondary" id="js-anleitung-btn" type="button">
         <span>❓</span> Wie funktioniert das Spiel?
@@ -464,15 +484,25 @@
       const uuid   = params.get(CONFIG.urlParam) || '';
       document.getElementById('js-uuid').textContent = uuid || '(kein Code in URL)';
 
-      // Tally-URL aufbauen
-      const tallyUrl = `https://tally.so/r/${CONFIG.tallyFormId}?qr_id=${encodeURIComponent(uuid)}`;
-      document.getElementById('js-tally-btn').href = tallyUrl;
-
       // QR-Code-Info anzeigen
       const infoBox    = document.getElementById('js-info-box');
       const notFound   = document.getElementById('js-not-found');
-      const tallyBtn   = document.getElementById('js-tally-btn');
+      const tallyEmbed = document.getElementById('js-tally-embed');
+      const tallyFrame = document.getElementById('js-tally-iframe');
       const entry      = uuid ? QR_CODES[uuid] : null;
+
+      if (entry) {
+        const tallyUrl = new URL(`https://tally.so/embed/${CONFIG.tallyFormId}`);
+        tallyUrl.searchParams.set('alignLeft', '1');
+        tallyUrl.searchParams.set('hideTitle', '1');
+        tallyUrl.searchParams.set('transparentBackground', '1');
+        tallyUrl.searchParams.set('dynamicHeight', '1');
+        tallyUrl.searchParams.set(CONFIG.urlParam, uuid);
+        tallyFrame.dataset.tallySrc = tallyUrl.toString();
+        if (window.Tally) {
+          window.Tally.loadEmbeds();
+        }
+      }
 
       if (entry) {
         document.getElementById('js-info-title').textContent = entry.title;
@@ -486,11 +516,12 @@
         // UUID vorhanden, aber nicht in der Liste
         infoBox.classList.add('hidden');
         notFound.style.display = 'block';
+        tallyEmbed.classList.add('hidden');
       } else {
         // Keine UUID in der URL (Demo-Ansicht)
         document.getElementById('js-info-title').textContent = 'Demo-Ansicht';
         document.getElementById('js-info-text').textContent  = 'Öffne diese Seite über einen echten QR-Code, um die Infos zu sehen.';
-        tallyBtn.style.display = 'none';
+        tallyEmbed.classList.add('hidden');
       }
 
       // Anleitung: Schritte rendern
