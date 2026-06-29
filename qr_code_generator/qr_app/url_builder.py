@@ -9,7 +9,7 @@ class URLBuilder:
         self.base_url = base_url
 
     def build(self, uuid_value: str) -> str:
-        return f"{self.base_url}{uuid_value}"
+        return f"{self.base_url}/qr_id={uuid_value}"
 
     def build_all(self, uuids: list[str]) -> list[tuple[int, str, str]]:
         """Gibt eine Liste von (nummer,uuid, url)-Tupeln zurück."""
