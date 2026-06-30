@@ -461,7 +461,7 @@
       // UUID aus URL-Parameter lesen
       const params = new URLSearchParams(window.location.search);
       const uuid   = params.get(CONFIG.urlParam) || '';
-      document.getElementById('js-uuid').textContent = uuid || '(kein Code in URL)';
+      document.getElementById('js-uuid').textContent = uuid || 'Du hast keinen gültigen QR-Code gescannt.';
 
       // QR-Code-Info anzeigen
       const infoBox    = document.getElementById('js-info-box');
