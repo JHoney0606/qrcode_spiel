@@ -437,7 +437,7 @@
 
   <footer>
     <p>Datenschutz: Deine Angaben werden ausschließlich für das Gewinnspiel genutzt und danach gelöscht.<br>
-      <a href="#">Datenschutzhinweis</a> · <a href="#">Impressum</a>
+      <a href="https://staffort.lgv.org/kontakt/datenschutzerklaerung">Datenschutzhinweis</a> · <a href="https://staffort.lgv.org/kontakt/impressum">Impressum</a>
     </p>
   </footer>
 
@@ -497,9 +497,9 @@
         notFound.style.display = 'block';
         tallyEmbed.classList.add('hidden');
       } else {
-        // Keine UUID in der URL (Demo-Ansicht)
-        document.getElementById('js-info-title').textContent = 'Demo-Ansicht';
-        document.getElementById('js-info-text').textContent  = 'Öffne diese Seite über einen echten QR-Code, um die Infos zu sehen.';
+        // Keine UUID in der URL (Default-Ansicht)
+        document.getElementById('js-info-title').textContent = 'Herzlich willkommen bei der Schnitzeljagd - finde die 100!';
+        document.getElementById('js-info-text').textContent  = 'Suche QR-Codes, um beim Spiel mitzumachen';
         tallyEmbed.classList.add('hidden');
       }
 
